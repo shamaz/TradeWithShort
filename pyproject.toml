@@ -1,0 +1,21 @@
+[project]
+name = "trading-with-short"
+version = "0.1.0"
+description = "Trading simulation application"
+requires-python = ">=3.10"
+dependencies = [
+    "gradio",
+    "pandas",
+    "plotly",
+    "python-dotenv",
+    "polygon-api-client",
+    "pydantic",
+    "mcp",
+    "openai",
+    "requests",
+    "agents",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
