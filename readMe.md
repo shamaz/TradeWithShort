@@ -26,6 +26,6 @@ when true these models will be used, otherwise they all use gpt-4.1-mini
     ]
 
 
-First start trading_floor from the trading_with_short folder -  uv run accounts.py
+First start gradio interface - uv run app.py 
+Then uv run trading_floor.py
 
-Then the gradio interface - uv run app.py
