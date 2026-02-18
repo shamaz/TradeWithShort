@@ -35,16 +35,34 @@ async def read_strategy_resource(name):
             result = await session.read_resource(f"accounts://strategy/{name}")
             return result.contents[0].text
 
+def _tool_result_to_text(result):
+    """Convert MCP CallToolResult to string for the model."""
+    if hasattr(result, "content") and result.content:
+        parts = []
+        for block in result.content:
+            if hasattr(block, "text"):
+                parts.append(block.text)
+            else:
+                parts.append(str(block))
+        return "\n".join(parts) if parts else ""
+    return str(result)
+
+
 async def get_accounts_tools_openai():
     openai_tools = []
     for tool in await list_accounts_tools():
         schema = {**tool.inputSchema, "additionalProperties": False}
+        toolname = tool.name
+
+        async def on_invoke(ctx, args_str, _name=toolname):
+            result = await call_accounts_tool(_name, json.loads(args_str))
+            return _tool_result_to_text(result)
+
         openai_tool = FunctionTool(
             name=tool.name,
             description=tool.description,
             params_json_schema=schema,
-            on_invoke_tool=lambda ctx, args, toolname=tool.name: call_accounts_tool(toolname, json.loads(args))
-                
+            on_invoke_tool=on_invoke,
         )
         openai_tools.append(openai_tool)
     return openai_tools
