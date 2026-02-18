@@ -1,6 +1,6 @@
 ## Trading with shorting
 
-This is based on the trading example in the course. It is a demonstration of 'paper' trading of equities with agents and MCP tools. It is not meant for live trading.
+This is based on the trading example in the Ed Donner's course https://github.com/ed-donner/agents/tree/main/6_mcp/community_contributions/trading_with_short. It is a demonstration of 'paper' trading of equities with agents and MCP tools. It is not meant for live trading.
 There are 4 traders with different trading strategies and possibly using different LLMs.
 
 Its behaviour is influenced by these .env values
@@ -28,4 +28,5 @@ when true these models will be used, otherwise they all use gpt-4.1-mini
 
 First start gradio interface - uv run app.py 
 Then uv run trading_floor.py
+
 
